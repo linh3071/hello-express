@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        <input id="Upload" type="file"></input>
+        <button id="Download">下载文件</button>
+    </div>
+
+    <script>
+        let token = '';
+        fetch('/api/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ username: 'admin', password: 'C9149EA96EBF26CD1129F3E1A8D101A' })
+        }).then(res => res.json()).then(res => {
+            token = res.data.token;
+            getUser();
+        });
+
+        function getUser() {
+            fetch('/api/user', {
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                }
+            }).then(res => res.json()).then(res => {
+                console.log('/api/user', res);
+            });
+        }
+
+        let filename;
+        document.getElementById('Upload').addEventListener('change', function (e) {
+            const file = e.target.files[0];
+            const formData = new FormData();
+            formData.append('file', file);
+
+            fetch('/api/upload', {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + token,
+                },
+                body: formData
+            }).then(res => res.json()).then(res => {
+                console.log(res);
+                filename = res.data.filename;
+            });
+        });
+
+        document.getElementById('Download').addEventListener('click', function () {
+            window.open('http://localhost:3000/upload/' + filename);
+        })
+    </script>
+</body>
+
+</html>

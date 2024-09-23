@@ -1,0 +1,27 @@
+{
+  "name": "hello-express",
+  "version": "1.0.0",
+  "description": "hello-express",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node index.js",
+    "build": "rimraf dist && rollup -c"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "crypto-js": "^4.2.0",
+    "express": "^4.21.0",
+    "express-jwt": "^8.4.1",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^1.4.5-lts.1",
+    "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "rollup-plugin-copy": "^3.5.0",
+    "rollup-plugin-terser": "^7.0.2"
+  }
+}
